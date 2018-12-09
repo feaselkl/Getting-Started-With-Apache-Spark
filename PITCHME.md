@@ -448,7 +448,7 @@ We will analyze food service inspection data for the city of Durham.  We want to
 5. **Spark SQL**
 6. Databricks Cloud
 
----?image=presentation/assets/background/demo.jpg&size=cover&opacity=20
+---?image=presentation/assets/background/frame.jpg&size=cover&opacity=20
 
 ### The Evolution of Spark
 
