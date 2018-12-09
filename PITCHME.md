@@ -71,9 +71,9 @@ Since then, Hadoop has taken off as its own ecosystem, allowing companies to pro
 
 ### The Birth of Hadoop:  2007-2011
 
-The hardware paradigm during the early Hadoop years:
+The hardware paradigm during the early years:
 
-* Lots of off-the-shelf servers with direct attached storage.
+* Many servers with direct attached storage.
 * Storage was primarily spinning disk.
 * Servers were held on-prem.
 * Servers were phyiscal machines.
@@ -85,15 +85,15 @@ This hardware paradigm drove technical decisions around data storage, including 
 
 ### The Birth of Hadoop:  2007-2011
 
-The software paradigm during the early Hadoop years:
+The software paradigm during the early years:
 
-* On Linux, C is still popular, but Java is cross-portable.
+* On Linux, C is popular but Java is more portable.
 * RAM is much faster than disk but is limited.
 * Network bandwidth is somewhat limited.
 * Data structure is context-sensitive and the same file may have several structures.
 * Developers know the data context when they write their code.
 
-This drove a number of decisions, including node types, semi-structured data storage, and MapReduce.
+This led to node types, semi-structured data storage, and MapReduce.
 
 ---
 
@@ -101,10 +101,9 @@ This drove a number of decisions, including node types, semi-structured data sto
 
 There are two primary node types in Hadoop: the NameNode and data nodes.
 
-The **NameNode** is also known as the control node or the head node. It is responsible for communication with the outside world, coordination with data nodes, and ensuring that jobs run.
+The **NameNode** (aka control or head node) is responsible for communication with the outside world, coordination with data nodes, and ensuring that jobs run.
 
-**Data nodes** store data and run code. After running the code against chunks of data, they return results back to the NameNode to make available to the user.
-
+**Data nodes** store data and execute code, making results available to the NameNode.
 
 ---
 
@@ -129,12 +128,12 @@ Semi-structured data helps when:
 
 ### MapReduce
 
-MapReduce is built around two functional programming constructs:
+MapReduce is built around two FP constructs:
 
 * **Map**: filter and sort data
 * **Reduce**: aggregate data
 
-Hadoop combines the Map and Reduce operations as part of its MapReduce engine. Each Hadoop "query" performs mapping and reduction on specific nodes in sequence.
+MapReduce combines map and reduce calls to transform data into desired outputs.
 
 The nodes which perform mapping may not be the same nodes which perform reduction, allowing for large-scale performance improvement.
 
@@ -142,12 +141,12 @@ The nodes which perform mapping may not be the same nodes which perform reductio
 
 ### What Went Right?
 
-* Able to process files too large for a single server – important with major increase in data sizes
-* Solved important problems for enormous companies (Google, Yahoo, Facebook, Twitter, etc.), contributing to great press
+* Able to process files too large for a single server
+* Solved important problems for enormous companies
 * Hadoop built up an amazing ecosystem
-** Databases:  HBase, Phoenix, Hive, Impala
-** Data movers:  Pig, Flume, Sqoop
-** Streaming:  Storm, Kafka, Spark, Flink
+  - Databases:  HBase, Phoenix, Hive, Impala
+  - Data movers:  Pig, Flume, Sqoop
+  - Streaming:  Storm, Kafka, Spark, Flink
 
 ---
 
@@ -155,10 +154,10 @@ The nodes which perform mapping may not be the same nodes which perform reductio
 
 * MapReduce can be SLOW – many reads and writes against slow spinning disk.
 * Hardware changes over time stretched and sometimes broke Hadoop assumptions:
-** Off-the-shelf servers --> Custom-built, higher-quality servers
-** Spinning disk DAS --> SANs, SSD --> SAN arrays of NVMe
-** RAM increases over time:  2 TB of RAM on a server is reasonable
-** Physical hardware --> On-prem VM  Cloud VM
+  - Off-the-shelf servers >> Custom-built, higher-quality servers
+  - Spinning disk DAS >> SANs, SSD >> SAN arrays of NVMe
+  - RAM increases over time:  2 TB of RAM on a server is reasonable
+  - Physical hardware >> On-prem VM >> Cloud VM
 
 Some of these changes precipitated the research project which became Apache Spark.
 
@@ -166,7 +165,7 @@ Some of these changes precipitated the research project which became Apache Spar
 
 ### The Genesis of Spark
 
-Spark started as a research project at the University of California Berkeley’s Algorithms, Machines, People Lab (AMPLab) in 2009.  The purpose of Spark was to find a way of handling in-memory cluster computing, avoiding some of the costs of reading and writing to disk that MapReduce has.
+Spark started as a research project at the University of California Berkeley’s Algorithms, Machines, People Lab (AMPLab) in 2009.  The project's goal was to develop in-memory cluster computing, avoiding MapReduce's reliance on heavy I/O use.
 
 The first open source release of Spark was 2010, concurrent with a paper from Matei Zaharia, et al.
 
@@ -176,11 +175,38 @@ In 2012, Zaharia, et al release a paper on Resilient Distributed Datasets.
 
 ### Resilient Distributed Datasets
 
-The Resilient Distributed Dataset (RDD) is a data structure which forms the core of Apache Spark.  It is:
+The Resilient Distributed Dataset (RDD) forms the core of Apache Spark.  It is:
 
 * Immutable – you never change an RDD itself; instead, you apply transformation functions to return a new RDD
+
+---
+
+### Resilient Distributed Datasets
+
+The Resilient Distributed Dataset (RDD) forms the core of Apache Spark.  It is:
+
+* Immutable
 * Distributed – executors (akin to data nodes) split up the data set into sizes small enough to fit into those machines’ memory
+
+---
+
+### Resilient Distributed Datasets
+
+The Resilient Distributed Dataset (RDD) forms the core of Apache Spark.  It is:
+
+* Immutable
+* Distributed
 * Resilient – in the event that one executor fails, the driver (akin to a name node) recognizes this failure and enlists a new executor to finish the job
+
+---
+
+### Resilient Distributed Datasets
+
+The Resilient Distributed Dataset (RDD) forms the core of Apache Spark.  It is:
+
+* Immutable
+* Distributed
+* Resilient
 * Lazy – Executors try to minimize the number of data-changing operations
 
 Add all of this together and you have the key component behind Spark.
@@ -204,12 +230,12 @@ Add all of this together and you have the key component behind Spark.
 
 We have several options available to install Spark:
 
-* Install Spark stand-alone on Linux, Windows, or Mac OS X
-* Use Spark integrated with a Hadoop distribution like Cloudera or Hortonworks
-* Use Spark with a Hadoop PaaS solution like Amazon ElasticMapReduce or Azure HDInsight
+* Install stand-alone (Linux, Windows, or Mac)
+* Use with a Hadoop distribution like Cloudera or Hortonworks
+* Use with a Hadoop PaaS solution like Amazon ElasticMapReduce or Azure HDInsight
 * Use Databricks Unified Analytics Platform on AWS or Azure
 
-We will look at single-node installations of the first two in this talk. This is enough for development purposes.
+We will look at the first two in this talk.
 
 ---
 
@@ -254,10 +280,10 @@ Step 4: Create c:\tmp\hive and open up permissions to everybody.
 Step 5:  Create environment variables:
 
 @div[left-50]
-SPARK_HOME --> C:\spark<br />
-HADOOP_HOME --> C:\spark (or where winutils is)<br />
-JAVA_HOME --> (where you installed Java)
-PATH --> ;%SPARK_HOME%\bin; %JAVA_HOME%\bin;
+SPARK_HOME >> C:\spark<br />
+HADOOP_HOME >> C:\spark (or where winutils is)<br />
+JAVA_HOME >> (where you installed Java)
+PATH >> ;%SPARK_HOME%\bin; %JAVA_HOME%\bin;
 @divend
 
 @div[right-50]
@@ -310,28 +336,31 @@ The <a href="https://hortonworks.com/products/sandbox/">Hortonworks Data Platfor
 
 ### Why Scala?
 
-Our examples today use Scala.  Spark supports Scala, Python, and Java as first-class languages and R and SQL as second-class languages.  So why Scala?
+Spark supports Scala, Python, and Java as primary languages and R and SQL as secondaries.  We will use Scala because:
 
 1. Spark is written in Scala.
 2. Functionality comes out in the Scala API first.
-3. Scala is much terser than Java while remaining readable.
+3. Scala is terser than Java but still readable.
 4. Scala is typically faster than Python.
-5. Scala is a functional programming language.
+5. Scala is a functional programming language, which fits the data platform mindset better.
 
-If you prefer Python or Java, that’s fine—but we will use Scala today. 
+If you prefer Python or Java, that’s fine. 
 
 ---
 
-### A Brief Primer on Functional Programming
+### Functional Programming In Brief
 
-Important things to know about functional programming today:
+Relevant functional programming concepts:
 
-* Functions are the key control structure
-`def parseLine(line:String) { line.toString().split(",")(3); }`
-* Functions can accept functions as parameters
-`val rdd = lines.map(parseLine)`
-* We can define inline, anonymous functions called lambda expressions
-`val rdd = lines.map(x => x.toString().split(",")(3))`
+```r
+def parseLine(line:String) { line.toString().split(",")(3); }
+val rdd = lines.map(parseLine)
+val rdd = lines.map(x => x.toString().split(",")(3))
+```
+
+@[1](Functions are the key control structure.)
+@[2](Functions can accept functions as parameters.)
+@[3](We can define inline, anonymous functions called lambda expressions.)
 
 We can build bottom-up solutions iteratively, rather than needing to know everything up front.
 
@@ -350,8 +379,6 @@ Transformations take inputs and return an RDD or DataSet.  Transformations are l
 ---
 
 ### Set Transformations
-
-Certain set operations are allowed with Spark as well.  These behave the same as their SQL counteparts:
 
 * `rdd1.distinct()`
 * `rdd1.union(rdd2)`
@@ -375,8 +402,6 @@ Actions take RDDs as inputs and return something other than an RDD or DataSet.  
 |collect()|Load the RDD onto one node|N|N|
 
 ---
-
-### Intended Use
 
 ### More Actions
 
@@ -406,14 +431,7 @@ Actions take RDDs as inputs and return something other than an RDD or DataSet.  
 
 ### Where To Eat?
 
-We will analyze food service inspection data for the city of Durham.  We want to answer the following questions, mainly for Food Service inspections:
-
-1. What is the average score for inspections from the year 2000 onward?
-2. What is the average score by year for inspections from 2000 onward?
-3. How many inspections do we have total?
-4. How many inspections by year for inspections from 2000 onward?
-5. How many inspections by report area do we have from 2000 onward?
-6. What is the average inspection score for Mobile Food versus Food Service from 2008 onward?
+We will analyze food service inspection data for the city of Durham.  We want to answer a number of questions about this data, including average scores and splits between classic restaurants and food trucks.
 
 ---?image=presentation/assets/background/demo.jpg&size=cover&opacity=15
 
@@ -446,13 +464,7 @@ Spark SQL functions are accessible within the SparkSession object, created by de
 
 ### The Functional Approach
 
-**Functions** provide us with SQL-like operators which we can chain together in Scala, similar to how we can use LINQ with C#.  These functions include (but are not limited to):
-
-* `select()`
-* `distinct()`
-* `where()`
-* `join()`
-* `groupBy()`
+**Functions** provide us with SQL-like operators which we can chain together in Scala, similar to how we can use LINQ with C#.  These functions include (but are not limited to) `select()`, `distinct()`, `where()`, `join()`, and `groupBy()`.
 
 There are also functions you might see in SQL Server like `concat()`, `concat_ws()`, `min()`, `max()`, `row_number()`, `rank()`, and `dense_rank()`.
 
@@ -466,7 +478,7 @@ Spark SQL tends to lag a bit behind Hive, which lags a bit behind the major rela
 
 ---
 
-### Querying The MovieLens Data Set
+### Querying The MovieLens Data
 
 GroupLens Research has made available their MovieLens data set which includes 20 million ratings of 27K movies.
 
@@ -507,7 +519,7 @@ Databricks, the commercial enterprise behind Apache Spark, makes available the D
 ### Databricks UAP
 
 @div[left-50]
-Clusters have 1 node and 6 GB of RAM, running on spot instances of AWS.  Occasionally cluster creation will fail if the spot price is too high; if you get an error, try again as prices change quickly.<br />
+Clusters are 1 node & 6 GB RAM running on spot instances of AWS.<br />
 
 Data sticks around after a cluster goes away, and limited data storage is free.<br />
 @divend
@@ -546,14 +558,12 @@ Your cluster terminates after 2 hours of inactivity. You can also terminate the 
 
 ### What's Next
 
-In today’s talk, we scratched the surface of Apache Spark.  From here, there are a number of areas within the Spark platform worth further investigation, including:
+We've only scratched the surface of Apache Spark.  From here, check out:
 
 * MLLib, a library for machine learning algorithms built into Spark
 * SparkR and sparklyr, two R libraries designed for distributed computing
 * GraphX, a distributed graph database 
 * Spark Streaming, allowing “real-time” data processing
-
-The Databricks Unified Analytics Platform (either Azure or AWS) is a great product offering and an easy way to dig into the Spark platform.
 
 ---
 
