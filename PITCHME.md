@@ -49,7 +49,7 @@
 5. Spark SQL
 6. Databricks Cloud
 
----
+---?image=presentation/assets/background/elephant1.jpg&size=cover&opacity=20
 
 ### The Origins of Hadoop
 
@@ -57,7 +57,7 @@ Hadoop started as a pair of Google whitepapers: the Google File System (released
 
 Since then, Hadoop has taken off as its own ecosystem, allowing companies to process petabytes of data efficiently over thousands of machines.
 
----
+---?image=presentation/assets/background/elephant2.jpg&size=cover&opacity=20
 
 ### Great Use Cases for Hadoop
 
@@ -67,7 +67,7 @@ Since then, Hadoop has taken off as its own ecosystem, allowing companies to pro
 * Statistical analysis of gigantic data sets.
 * A central data repository (data lake), which can feed other sources (like warehouses).
 
----
+---?image=presentation/assets/background/ram.jpg&size=cover&opacity=20
 
 ### The Birth of Hadoop:  2007-2011
 
@@ -81,7 +81,7 @@ The hardware paradigm during the early years:
 
 This hardware paradigm drove technical decisions around data storage, including the Hadoop Distributed Filesystem (HDFS).
 
----
+---?image=presentation/assets/background/greenscreen.jpg&size=cover&opacity=20
 
 ### The Birth of Hadoop:  2007-2011
 
@@ -95,7 +95,7 @@ The software paradigm during the early years:
 
 This led to node types, semi-structured data storage, and MapReduce.
 
----
+---?image=presentation/assets/background/elephant3.jpg&size=cover&opacity=20
 
 ### Node Types in Hadoop
 
@@ -105,7 +105,7 @@ The **NameNode** (aka control or head node) is responsible for communication wit
 
 **Data nodes** store data and execute code, making results available to the NameNode.
 
----
+---?image=presentation/assets/background/data.jpg&size=cover&opacity=20
 
 ### Data Retrieval in Hadoop
 
@@ -124,7 +124,7 @@ Semi-structured data helps when:
 
 ![A mocked-up example of a log file](presentation/assets/image/SampleErrorLog.png)
 
----
+---?image=presentation/assets/background/map.jpg&size=cover&opacity=20
 
 ### MapReduce
 
@@ -137,7 +137,7 @@ MapReduce combines map and reduce calls to transform data into desired outputs.
 
 The nodes which perform mapping may not be the same nodes which perform reduction, allowing for large-scale performance improvement.
 
----
+---?image=presentation/assets/background/elephant4.jpg&size=cover&opacity=20
 
 ### What Went Right?
 
@@ -148,7 +148,7 @@ The nodes which perform mapping may not be the same nodes which perform reductio
   - Data movers:  Pig, Flume, Sqoop
   - Streaming:  Storm, Kafka, Spark, Flink
 
----
+---?image=presentation/assets/background/elephant5.jpg&size=cover&opacity=20
 
 ### What Went Wrong?
 
@@ -160,7 +160,7 @@ The nodes which perform mapping may not be the same nodes which perform reductio
 
 Some of these changes precipitated the research project which became Apache Spark.
 
----
+---?image=presentation/assets/background/sparkler.jpg&size=cover&opacity=20
 
 ### The Genesis of Spark
 
@@ -223,7 +223,7 @@ Add all of this together and you have the key component behind Spark.
 5. Spark SQL
 6. Databricks Cloud
 
----
+---?image=presentation/assets/background/construction.jpg&size=cover&opacity=20
 
 ### Installation Options
 
@@ -331,7 +331,7 @@ The <a href="https://hortonworks.com/products/sandbox/">Hortonworks Data Platfor
 5. Spark SQL
 6. Databricks Cloud
 
----
+---?image=presentation/assets/background/colored-pencils.jpg&size=cover&opacity=20
 
 ### Why Scala?
 
@@ -345,7 +345,7 @@ Spark supports Scala, Python, and Java as primary languages and R and SQL as sec
 
 If you prefer Python or Java, that’s fine. 
 
----
+---?image=presentation/assets/background/arrow.jpg&size=cover&opacity=20
 
 ### Functional Programming In Brief
 
@@ -362,7 +362,7 @@ val rdd = lines.map(x => x.toString().split(",")(3))
 @[3](We can define inline, anonymous functions called lambda expressions.)
 @[1-3](We can build bottom-up solutions iteratively, rather than needing to know everything up front.)
 
----
+---?image=presentation/assets/background/koala.jpg&size=cover&opacity=20
 
 ### Transformations
 
@@ -374,7 +374,7 @@ Transformations take inputs and return an RDD or DataSet.  Transformations are l
 |flatMap(func)|Break a row into 0 or more rows|1|0+|
 |filter(func)|Return if row fulfills predicate|1|0-1|
 
----
+---?image=presentation/assets/background/cat-yawning.jpg&size=cover&opacity=20
 
 ### Set Transformations
 
@@ -386,7 +386,7 @@ Transformations take inputs and return an RDD or DataSet.  Transformations are l
 
 Warning:  set operations can be slow in Spark depending on data sizes and whether data needs to be shuffled across nodes.
 
----
+---?image=presentation/assets/background/jump.jpg&size=cover&opacity=20
 
 ### Actions
 
@@ -399,7 +399,7 @@ Actions take RDDs as inputs and return something other than an RDD or DataSet.  
 |aggregate(zero)(seqOp,combOp)|Generate output of arbitrary type|N|1|
 |collect()|Load the RDD onto one node|N|N|
 
----
+---?image=presentation/assets/background/utv.jpg&size=cover&opacity=20
 
 ### More Actions
 
@@ -425,13 +425,13 @@ Actions take RDDs as inputs and return something other than an RDD or DataSet.  
 5. Spark SQL
 6. Databricks Cloud
 
----
+---?image=presentation/assets/background/restaurant.jpg&size=cover&opacity=20
 
 ### Where To Eat?
 
 We will analyze food service inspection data for the city of Durham.  We want to answer a number of questions about this data, including average scores and splits between classic restaurants and food trucks.
 
----?image=presentation/assets/background/demo.jpg&size=cover&opacity=15
+---?image=presentation/assets/background/demo.jpg&size=cover&opacity=20
 
 ### Demo Time
 
@@ -448,7 +448,7 @@ We will analyze food service inspection data for the city of Durham.  We want to
 5. **Spark SQL**
 6. Databricks Cloud
 
----
+---?image=presentation/assets/background/demo.jpg&size=cover&opacity=20
 
 ### The Evolution of Spark
 
@@ -458,7 +458,7 @@ With Apache Spark 2.0, Spark SQL can take advantage of Datasets (strongly typed 
 
 Spark SQL functions are accessible within the SparkSession object, created by default as “spark” in the Spark shell.
 
----
+---?image=presentation/assets/background/chain.jpg&size=cover&opacity=20
 
 ### The Functional Approach
 
@@ -466,7 +466,7 @@ Spark SQL functions are accessible within the SparkSession object, created by de
 
 There are also functions you might see in SQL Server like `concat()`, `concat_ws()`, `min()`, `max()`, `row_number()`, `rank()`, and `dense_rank()`.
 
----
+---?image=presentation/assets/background/magnifying-glass.jpg&size=cover&opacity=20
 
 ### Queries
 
@@ -474,7 +474,7 @@ There are also functions you might see in SQL Server like `concat()`, `concat_ws
 
 Spark SQL tends to lag a bit behind Hive, which lags a bit behind the major relational players in terms of ANSI compliance.  That said, Spark SQL has improved greatly since version 1.0.
 
----
+---?image=presentation/assets/background/movie.jpg&size=cover&opacity=20
 
 ### Querying The MovieLens Data
 
@@ -482,7 +482,7 @@ GroupLens Research has made available their MovieLens data set which includes 20
 
 We will use Apache Spark with Spark SQL to analyze this data set, letting us look at frequently rated movies, the highest (and lowest) rated movies, and common movie genres.
 
----?image=presentation/assets/background/demo.jpg&size=cover&opacity=15
+---?image=presentation/assets/background/demo.jpg&size=cover&opacity=20
 
 ### Demo Time
 
@@ -550,7 +550,7 @@ Your cluster terminates after 2 hours of inactivity. You can also terminate the 
 
 ![Be sure to shut down those inactive Databricks clusers to save money.](presentation/assets/image/DatabricksTerminate.png)
 
----
+---?image=presentation/assets/background/excavator.jpg&size=cover&opacity=20
 
 @title[What's Next]
 
