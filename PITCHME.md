@@ -154,9 +154,8 @@ The nodes which perform mapping may not be the same nodes which perform reductio
 
 * MapReduce can be SLOW – many reads and writes against slow spinning disk.
 * Hardware changes over time stretched and sometimes broke Hadoop assumptions:
-  - Off-the-shelf servers >> Custom-built, higher-quality servers
-  - Spinning disk DAS >> SANs, SSD >> SAN arrays of NVMe
-  - RAM increases over time:  2 TB of RAM on a server is reasonable
+  - Spinning disk DAS >> SSD & SANs >> NVMe SANs
+  - **Much** more RAM on a single box (e.g., 2TB)
   - Physical hardware >> On-prem VM >> Cloud VM
 
 Some of these changes precipitated the research project which became Apache Spark.
@@ -208,6 +207,17 @@ The Resilient Distributed Dataset (RDD) forms the core of Apache Spark.  It is:
 * Distributed
 * Resilient
 * Lazy – Executors try to minimize the number of data-changing operations
+
+---
+
+### Resilient Distributed Datasets
+
+The Resilient Distributed Dataset (RDD) forms the core of Apache Spark.  It is:
+
+* Immutable
+* Distributed
+* Resilient
+* Lazy
 
 Add all of this together and you have the key component behind Spark.
 
@@ -280,10 +290,10 @@ Step 4: Create c:\tmp\hive and open up permissions to everybody.
 Step 5:  Create environment variables:
 
 @div[left-50]
-SPARK_HOME >> C:\spark<br />
-HADOOP_HOME >> C:\spark (or where winutils is)<br />
-JAVA_HOME >> (where you installed Java)
-PATH >> ;%SPARK_HOME%\bin; %JAVA_HOME%\bin;
+**SPARK_HOME** >> C:\spark<br />
+**HADOOP_HOME** >> (where winutils is)<br />
+**JAVA_HOME** >> (where you installed Java)<br />
+**PATH** >> ;%SPARK_HOME%\bin; %JAVA_HOME%\bin;
 @divend
 
 @div[right-50]
@@ -361,8 +371,7 @@ val rdd = lines.map(x => x.toString().split(",")(3))
 @[1](Functions are the key control structure.)
 @[2](Functions can accept functions as parameters.)
 @[3](We can define inline, anonymous functions called lambda expressions.)
-
-We can build bottom-up solutions iteratively, rather than needing to know everything up front.
+@[1-3](We can build bottom-up solutions iteratively, rather than needing to know everything up front.)
 
 ---
 
