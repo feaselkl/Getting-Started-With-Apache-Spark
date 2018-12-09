@@ -70,8 +70,12 @@
   color: white;
 }
 
+.reveal th {
+	font-size: 0.6em;
+}
+
 .reveal td {
-	font-size: 0.8em;
+	font-size: 0.6em;
 }
 
 .gp-tip { font-size : 1.5em; }

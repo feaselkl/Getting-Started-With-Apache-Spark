@@ -154,9 +154,9 @@ The nodes which perform mapping may not be the same nodes which perform reductio
 
 * MapReduce can be SLOW – many reads and writes against slow spinning disk.
 * Hardware changes over time stretched and sometimes broke Hadoop assumptions:
-  - Spinning disk DAS >> SSD & SANs >> NVMe SANs
+  - Spinning disk DAS >> SSD & SANs >> NVMe
   - **Much** more RAM on a single box (e.g., 2TB)
-  - Physical hardware >> On-prem VM >> Cloud VM
+  - Physical hardware >> On-prem VM >> Cloud
 
 Some of these changes precipitated the research project which became Apache Spark.
 
@@ -207,17 +207,6 @@ The Resilient Distributed Dataset (RDD) forms the core of Apache Spark.  It is:
 * Distributed
 * Resilient
 * Lazy – Executors try to minimize the number of data-changing operations
-
----
-
-### Resilient Distributed Datasets
-
-The Resilient Distributed Dataset (RDD) forms the core of Apache Spark.  It is:
-
-* Immutable
-* Distributed
-* Resilient
-* Lazy
 
 Add all of this together and you have the key component behind Spark.
 
@@ -290,10 +279,10 @@ Step 4: Create c:\tmp\hive and open up permissions to everybody.
 Step 5:  Create environment variables:
 
 @div[left-50]
-**SPARK_HOME** >> C:\spark<br />
+**SPARK_HOME** >> `C:\spark`<br />
 **HADOOP_HOME** >> (where winutils is)<br />
 **JAVA_HOME** >> (where you installed Java)<br />
-**PATH** >> ;%SPARK_HOME%\bin; %JAVA_HOME%\bin;
+**PATH** >> `;%SPARK_HOME%\bin; %JAVA_HOME%\bin;`
 @divend
 
 @div[right-50]
