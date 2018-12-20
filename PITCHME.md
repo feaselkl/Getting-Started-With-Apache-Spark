@@ -293,8 +293,7 @@ Step 5:  Create environment variables:
 
 ### Install Spark On Windows
 
-Step 6: Create c:\tmp\hive and open up permissions to everybody. 
-
+Step 6: Open the `conf` folder and create & modify `log4j.properties`.
 
 ![The conf folder, containing log4j.properties](presentation/assets/image/ConfFolder.png)
 
