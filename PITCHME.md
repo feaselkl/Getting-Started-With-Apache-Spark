@@ -259,7 +259,7 @@ You can unzip this .tgz file using a tool like 7-Zip.
 
 ### Install Spark On Windows
 
-Step 3:  <a href="https://github.com/steveloughran/winutils/blob/master/hadoop-2.8.3/bin/winutils.exe">Download WinUtils</a>.  This is the 64-bit version and should be 110KB.  There is a 32-bit version which is approximately 43KB; it will **not** work with 64-bit Windows!  Put this exe somewhere like C:\spark\bin\.
+Step 3:  <a href="https://github.com/steveloughran/winutils/blob/master/hadoop-2.8.3/bin/winutils.exe">Download WinUtils</a>.  This is the 64-bit version and should be 110KB.  There is a 32-bit version which is approximately 43KB; it will **not** work with 64-bit Windows!  Put it somewhere like C:\spark\bin\.
 
 ![The winutils readme.](presentation/assets/image/winutils.png)
 
