@@ -9,6 +9,7 @@ let main argv =
                     .GetOrCreate()
     let dataFrame = spark.Read()
                         .Option("inferSchema", true)
+                        .Option("header", true)
                         .Csv(argv.[0])
 
     // Demonstration 1:  using the DataFrame API.
