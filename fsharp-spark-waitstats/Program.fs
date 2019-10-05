@@ -22,7 +22,7 @@ let main argv =
         .Show()
 
     // Demonstration 2:  using Spark SQL.
-    printfn "Top 20 waits, grouped by wait type and event date."
+    printfn "Top 20 non-OTHER waits, grouped by wait type and event date."
     dataFrame.CreateOrReplaceTempView("WaitStats")
     spark.Sql("
     SELECT
@@ -30,6 +30,8 @@ let main argv =
         CAST(Time AS DATE) AS EventDate, 
         SUM(MillisecondsWaiting) AS MillisecondsWaiting
     FROM WaitStats
+    WHERE
+        WaitType <> 'OTHER'
     GROUP BY
         WaitType,
         CAST(Time AS DATE)
