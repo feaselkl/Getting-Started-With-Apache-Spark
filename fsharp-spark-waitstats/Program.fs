@@ -18,6 +18,7 @@ let main argv =
         .Where("MillisecondsWaiting > 10000")
         .GroupBy("WaitType")
         .Sum("MillisecondsWaiting")
+        .As("TotalWaitTime")
         .Show()
 
     // Demonstration 2:  using Spark SQL.
@@ -36,6 +37,6 @@ let main argv =
         MillisecondsWaiting DESC,
         EventDate,
         WaitType
-    LIMIT 20").Show(20, 0, true)
+    LIMIT 20").Show(20)
 
     0 // return an integer exit code
