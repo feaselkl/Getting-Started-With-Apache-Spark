@@ -47,7 +47,8 @@
 3. Functional Spark
 4. Our First Examples
 5. Spark SQL
-6. Databricks Cloud
+6. Databricks UAP
+7. .NET for Apache Spark
 
 ---?image=presentation/assets/background/elephant1.jpg&size=cover&opacity=20
 
@@ -221,7 +222,8 @@ Add all of this together and you have the key component behind Spark.
 3. Functional Spark
 4. Our First Examples
 5. Spark SQL
-6. Databricks Cloud
+6. Databricks UAP
+7. .NET for Apache Spark
 
 ---?image=presentation/assets/background/construction.jpg&size=cover&opacity=20
 
@@ -231,10 +233,10 @@ We have several options available to install Spark:
 
 * Install stand-alone (Linux, Windows, or Mac)
 * Use with a Hadoop distribution like Cloudera or Hortonworks
-* Use with a Hadoop PaaS solution like Amazon ElasticMapReduce or Azure HDInsight
 * Use Databricks Unified Analytics Platform on AWS or Azure
+* Use with a Hadoop PaaS solution like Amazon ElasticMapReduce or Azure HDInsight
 
-We will look at the first two in this talk.
+We will look at the first three in this talk.
 
 ---
 
@@ -328,7 +330,8 @@ The <a href="https://hortonworks.com/products/sandbox/">Hortonworks Data Platfor
 3. **Functional Spark**
 4. Our First Examples
 5. Spark SQL
-6. Databricks Cloud
+6. Databricks UAP
+7. .NET for Apache Spark
 
 ---?image=presentation/assets/background/colored-pencils.jpg&size=cover&opacity=20
 
@@ -367,11 +370,7 @@ val rdd = lines.map(x => x.toString().split(",")(3))
 
 Transformations take inputs and return an RDD or DataSet.  Transformations are lazily evaluated, making Spark processing more efficient.
 
-|Transformation|Description|Input Rows|Output Rows|
-|--------------|-----------|----------|-----------|
-|map(func)|Run a function for each row|1|1|
-|flatMap(func)|Break a row into 0 or more rows|1|0+|
-|filter(func)|Return if row fulfills predicate|1|0-1|
+@table[table-header table-tsv text-07](presentation/assets/tsv/transformations.txt)
 
 ---?image=presentation/assets/background/cat-yawning.jpg&size=cover&opacity=20
 
@@ -391,12 +390,7 @@ Warning:  set operations can be slow in Spark depending on data sizes and whethe
 
 Actions take RDDs as inputs and return something other than an RDD or DataSet.  Actions cause Spark to evaluate all transformations and return.
 
-|Action|Description|Input Rows|Output Rows|
-|------|-----------|----------|-----------|
-|reduce(func)|Execute for each row|N|1|
-|fold(zero)(func)|Reduce but with a "zero value"|N|1|
-|aggregate(zero)(seqOp,combOp)|Generate output of arbitrary type|N|1|
-|collect()|Load the RDD onto one node|N|N|
+@table[table-header table-tsv text-07](presentation/assets/tsv/actions.txt)
 
 ---?image=presentation/assets/background/utv.jpg&size=cover&opacity=20
 
@@ -404,12 +398,7 @@ Actions take RDDs as inputs and return something other than an RDD or DataSet.  
 
 Actions take RDDs as inputs and return something other than an RDD or DataSet.  Actions cause Spark to evaluate all transformations and return.
 
-|Action|Description|Input Rows|Output Rows|
-|------|-----------|----------|-----------|
-|count()|Return count of rows|N|1|
-|take(n)|Return n elements. Often biased, no order guaranteed|N|n|
-|top(n)|Get first n elements|N|n|
-|foreach() / for()|Iterate through RDD|N|-|
+@table[table-header table-tsv text-07](presentation/assets/tsv/moreactions.txt)
 
 ---
 
@@ -422,7 +411,8 @@ Actions take RDDs as inputs and return something other than an RDD or DataSet.  
 3. Functional Spark
 4. **Our First Examples**
 5. Spark SQL
-6. Databricks Cloud
+6. Databricks UAP
+7. .NET for Apache Spark
 
 ---?image=presentation/assets/background/restaurant.jpg&size=cover&opacity=20
 
@@ -445,7 +435,8 @@ We will analyze food service inspection data for the city of Durham.  We want to
 3. Functional Spark
 4. Our First Examples
 5. **Spark SQL**
-6. Databricks Cloud
+6. Databricks UAP
+7. .NET for Apache Spark
 
 ---?image=presentation/assets/background/frame.jpg&size=cover&opacity=20
 
@@ -487,7 +478,7 @@ We will use Apache Spark with Spark SQL to analyze this data set, letting us loo
 
 ---
 
-@title[Databricks Cloud]
+@title[Databricks UAP]
 
 ## Agenda
 
@@ -496,7 +487,8 @@ We will use Apache Spark with Spark SQL to analyze this data set, letting us loo
 3. Functional Spark
 4. Our First Examples
 5. Spark SQL
-6. **Databricks Cloud**
+6. **Databricks UAP**
+7. .NET for Apache Spark
 
 ---
 
@@ -548,6 +540,30 @@ Zeppelin comes with a good set of built-in, interactive plotting options.
 Your cluster terminates after 2 hours of inactivity. You can also terminate the cluster early.
 
 ![Be sure to shut down those inactive Databricks clusers to save money.](presentation/assets/image/DatabricksTerminate.png)
+
+---
+
+@title[.NET for Apache Spark]
+
+## Agenda
+
+1. The Origins of Spark
+2. Installing Spark
+3. Functional Spark
+4. Our First Examples
+5. Spark SQL
+6. Databricks UAP
+7. **.NET for Apache Spark**
+
+---
+
+Microsoft has official support for Spark running on .NET.  They support the C# and F# languages.
+
+With .NET code, you are limited to DataFrames and Spark SQL, so no direct access to RDDs.
+
+---?image=presentation/assets/background/demo.jpg&size=cover&opacity=20
+
+### Demo Time
 
 ---?image=presentation/assets/background/excavator.jpg&size=cover&opacity=20
 
