@@ -557,6 +557,8 @@ Your cluster terminates after 2 hours of inactivity. You can also terminate the 
 
 ---
 
+### dotnet-spark
+
 Microsoft has official support for Spark running on .NET.  They support the C# and F# languages.
 
 With .NET code, you are limited to DataFrames and Spark SQL, so no direct access to RDDs.
