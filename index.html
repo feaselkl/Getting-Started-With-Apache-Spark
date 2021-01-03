@@ -1,0 +1,684 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Catallaxy Services | Getting Started with Apache Spark</title>
+
+		<link rel="stylesheet" href="../reveal.js/dist/reset.css">
+		<link rel="stylesheet" href="../reveal.js/dist/reveal.css">
+		<link rel="stylesheet" href="../reveal.js/dist/theme/black.css" id="theme">
+		<link rel="stylesheet" href="../WebsiteAssets/mods.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="../reveal.js/plugin/highlight/monokai.css" id="highlight-theme">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h2>Getting Started with Apache Spark</h2>
+					
+					<a href="https://www.catallaxyservices.com">Kevin Feasel</a> (<a href="https://twitter.com/feaselkl">@feaselkl</a>)<br />
+					<a href="https://csmore.info/on/spark">https://csmore.info/on/spark</a>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Who Am I?  What Am I Doing Here?</h3>
+					<div class="container">
+						<div class="col">
+							<table class="whoami">
+								<tr>
+									<td><a href="https://csmore.info"><img src="../WebsiteAssets/Logo.png" height="100" /></a></td>
+									<td nowrap><a href="https://csmore.info">Catallaxy Services</a></td>
+								</tr>
+								<tr>
+									<td><a href="https://curatedsql.com"><img src="../WebsiteAssets/CuratedSQLLogo.png" height="100" /></a></td>
+									<td nowrap><a href="https://curatedsql.com">Curated SQL</a></td>
+								</tr>
+								<tr>
+									<td><a href="https://www.apress.com/us/book/9781484254608"><img src="../WebsiteAssets/PolyBaseRevealed.png" height="120" /></a></td>
+									<td nowrap><a href="https://www.apress.com/us/book/9781484254608">PolyBase Revealed</a></td>
+								</tr>
+							</table>
+						</div>
+						<div class="col">
+							<a href="http://www.twitter.com/feaselkl"><img src="../WebsiteAssets/HeadShot.jpg" height="358" width="315" /></a>
+							<br />
+							<a href="http://www.twitter.com/feaselkl">@feaselkl</a>
+						</div>					
+					</div>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Agenda</h3>
+					
+					<ol>
+						<li class="active">The Origins of Spark</li>
+						<li>Installing Spark</li>
+						<li>Functional Spark</li>
+						<li>Our First Examples</li>
+						<li>Spark SQL</li>
+						<li>Databricks UAP</li>
+						<li>.NET for Apache Spark</li>
+					</ol>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/elephant1.jpg" data-background-opacity="0.2">
+					<h3>The Origins of Hadoop</h3>
+					
+					<p>Hadoop started as a pair of Google whitepapers: the Google File System (released in 2003) and MapReduce (2004). Doug Cutting, while working at Yahoo, applied these concepts to search engine processing.  The first public release of Hadoop was in early 2006.</p>
+
+					<p>Since then, Hadoop has taken off as its own ecosystem, allowing companies to process petabytes of data efficiently over thousands of machines.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/elephant2.jpg" data-background-opacity="0.2">
+					<h3>Great Use Cases for Hadoop</h3>
+					
+					<ul>
+						<li>Processing gigantic numbers of records, where a single-server solution is cost prohibitive or unavailable.</li>
+						<li>"Cold storage" of relational data, especially using Polybase.</li>
+						<li>Real-time ETL and streaming of data.</li>
+						<li>Statistical analysis of gigantic data sets.</li>
+						<li>A central data repository (data lake), which can feed other sources (like warehouses).</li>
+					</ul>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/ram.jpg" data-background-opacity="0.2">
+					<h3>The Birth of Hadoop:  2007-2011</h3>
+					
+					<p>The hardware paradigm during the early years:</p>
+					
+					<ul>
+						<li>Many servers with direct attached storage.</li>
+						<li>Storage was primarily spinning disk.</li>
+						<li>Servers were held on-prem.</li>
+						<li>Servers were phyiscal machines.</li>
+						<li>There was some expectation of server failure.</li>
+					</ul>
+					
+					<p>This hardware paradigm drove technical decisions around data storage, including the Hadoop Distributed Filesystem (HDFS).</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/greenscreen.jpg" data-background-opacity="0.2">
+					<h3>The Birth of Hadoop:  2007-2011</h3>
+					
+					<p>The software paradigm during the early years:</p>
+					
+					<ul>
+						<li>On Linux, C is popular but Java is more portable.</li>
+						<li>RAM is much faster than disk but is limited.</li>
+						<li>Network bandwidth is somewhat limited.</li>
+						<li>Data structure is context-sensitive and the same file may have several structures.</li>
+						<li>Developers know the data context when they write their code.</li>
+					</ul>
+					
+					<p>This led to node types, semi-structured data storage, and MapReduce.</p>
+				</section>
+
+				<section data-background-image="presentation/assets/background/elephant3.jpg" data-background-opacity="0.2">
+					<h3>Node Types in Hadoop</h3>
+					
+					<p>There are two primary node types in Hadoop: the NameNode and data nodes.</p>
+
+					<p>The <strong>NameNode</strong> (aka control or head node) is responsible for communication with the outside world, coordination with data nodes, and ensuring that jobs run.</p>
+
+					<p><strong>Data nodes</strong> store data and execute code, making results available to the NameNode.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/data.jpg" data-background-opacity="0.2">
+					<h3>Data Retrieval in Hadoop</h3>
+					
+					<p>Hadoop follows a "semi-structured" data model: you define the data structure not when adding files to HDFS, but rather upon retrieval. You can still do ETL and data integrity checks before moving data to HDFS, but it is not mandatory.</p>
+
+					<p>In contrast, a relational database has a structured data model:  queries can make good assumptions about data integrity and structure.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Data Retrieval in Hadoop</h3>
+					
+					<p>Semi-structured data helps when:</p>
+					
+					<ul>
+						<li>Different lines have different sets of values.</li>
+						<li>Even if the lines are the same, different applications need the data aligned different ways.</li>
+					</ul>
+					
+					<img src="presentation/assets/image/SampleErrorLog.png" />
+				</section>
+				
+				<section data-background-image="presentation/assets/background/map.jpg" data-background-opacity="0.2">
+					<h3>MapReduce</h3>
+					
+					<p>MapReduce is built around two FP constructs:</p>
+					
+					<ul>
+						<li><strong>Map</strong>: filter and sort data</li>
+						<li><strong>Reduce</strong>: aggregate data</li>
+					</ul>
+					
+					<p>MapReduce combines map and reduce calls to transform data into desired outputs.</p>
+
+					<p>The nodes which perform mapping may not be the same nodes which perform reduction, allowing for large-scale performance improvement.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/elephant4.jpg" data-background-opacity="0.2">
+					<h3>What Went Right?</h3>
+					
+					<ul>
+						<li>Able to process files too large for a single server</li>
+						<li>Solved important problems for enormous companies</li>
+						<li>Hadoop built up an amazing ecosystem</li>
+							<ul>
+								<li>Databases:  HBase, Phoenix, Hive, Impala</li>
+								<li>Data movers:  Pig, Flume, Sqoop</li>
+								<li>Streaming:  Storm, Kafka, Spark, Flink</li>
+							</ul>
+					</ul>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/elephant5.jpg" data-background-opacity="0.2">
+					<h3>What Went Wrong?</h3>
+					
+					<ul>
+						<li>MapReduce can be SLOW – many reads and writes against slow spinning disk.</li>
+						<li>Hardware changes over time stretched and sometimes broke Hadoop assumptions:</li>
+							<ul>
+								<li>Spinning disk DAS >> SSD and SANs >> NVMe</li>
+								<li><strong>Much</strong> more RAM on a single box (e.g., 2TB)</li>
+								<li>Physical hardware >> On-prem VM >> Cloud</li>
+							</ul>
+					</ul>
+					
+					<p>Some of these changes precipitated the research project which became Apache Spark.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/sparkler.jpg" data-background-opacity="0.2">
+					<h3>The Genesis of Spark</h3>
+
+					<p>Spark started as a research project at the University of California Berkeley’s Algorithms, Machines, People Lab (AMPLab) in 2009.  The project's goal was to develop in-memory cluster computing, avoiding MapReduce's reliance on heavy I/O use.</p>
+
+					<p>The first open source release of Spark was 2010, concurrent with a paper from Matei Zaharia, et al.</p>
+
+					<p>In 2012, Zaharia, et al release a paper on Resilient Distributed Datasets.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Resilient Distributed Datasets</h3>
+
+					<p>The Resilient Distributed Dataset (RDD) forms the core of Apache Spark.  It is:</p>
+
+					<ul>
+						<li>Immutable – you never change an RDD itself; instead, you apply transformation functions to return a new RDD</li>
+					</ul>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Resilient Distributed Datasets</h3>
+
+					<p>The Resilient Distributed Dataset (RDD) forms the core of Apache Spark.  It is:</p>
+
+					<ul>
+						<li>Immutable</li>
+						<li>Distributed – executors (akin to data nodes) split up the data set into sizes small enough to fit into those machines’ memory</li>
+					</ul>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Resilient Distributed Datasets</h3>
+
+					<p>The Resilient Distributed Dataset (RDD) forms the core of Apache Spark.  It is:</p>
+
+					<ul>
+						<li>Immutable</li>
+						<li>Distributed</li>
+						<li>Resilient – in the event that one executor fails, the driver (akin to a name node) recognizes this failure and enlists a new executor to finish the job</li>
+					</ul>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Resilient Distributed Datasets</h3>
+
+					<p>The Resilient Distributed Dataset (RDD) forms the core of Apache Spark.  It is:</p>
+
+					<ul>
+						<li>Immutable</li>
+						<li>Distributed</li>
+						<li>Resilient</li>
+						<li>Lazy – Executors try to minimize the number of data-changing operations</li>
+					</ul>
+					
+					<p>Add all of this together and you have the key component behind Spark.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Agenda</h3>
+					
+					<ol>
+						<li>The Origins of Spark</li>
+						<li class="active">Installing Spark</li>
+						<li>Functional Spark</li>
+						<li>Our First Examples</li>
+						<li>Spark SQL</li>
+						<li>Databricks UAP</li>
+						<li>.NET for Apache Spark</li>
+					</ol>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/construction.jpg" data-background-opacity="0.2">
+					<h3>Installation Options</h3>
+
+					<p>We have several options available to install Spark:</p>
+
+					<ul>
+						<li>Install stand-alone (Linux, Windows, or Mac)</li>
+						<li>Use with a Hadoop distribution like Cloudera or Hortonworks</li>
+						<li>Use Databricks Unified Analytics Platform on AWS or Azure</li>
+						<li>Use with a Hadoop PaaS solution like Amazon ElasticMapReduce or Azure HDInsight</li>
+					</ul>
+					
+					<p>We will look at a standalone installation but use Databricks UAP for demos.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Install Spark On Windows</h3>
+
+					<p>Step 1:  Install the <a href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">Java Development Kit</a>.  I recommend getting Java Version 8.  Spark is currently not compatible with JDKs after 8.</p>
+					
+					<img src="presentation/assets/image/JavaSE.png" />
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Install Spark On Windows</h3>
+
+					<p>Step 2:  Go to <a href="http://spark.apache.org/downloads.html">the Spark website</a> and download a pre-built Spark binary.</p>
+					
+					<img src="presentation/assets/image/DownloadSpark.png" />
+					
+					<p>You can unzip this .tgz file using a tool like 7-Zip.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Install Spark On Windows</h3>
+
+					<p>Step 3:  <a href="https://github.com/steveloughran/winutils/blob/master/hadoop-2.8.3/bin/winutils.exe">Download WinUtils</a>.  This is the 64-bit version and should be 110KB.  There is a 32-bit version which is approximately 43KB; it will <strong>not</strong> work with 64-bit Windows!  Put it somewhere like <code>C:\spark\bin\</code>.</p>
+					
+					<img src="presentation/assets/image/winutils.png" />
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Install Spark On Windows</h3>
+
+					<p>Step 4: Create <code>c:\tmp\hive</code> and open up permissions to everybody.</p>
+					
+					<img src="presentation/assets/image/GrantHiveRights.png" />
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Install Spark On Windows</h3>
+
+					<p>Step 5:  Create environment variables:</p>
+					
+					<div class="container">
+						<div class="col">
+							<p><code>SPARK_HOME</code> >> <code>C:\spark</code><br />
+							<code>HADOOP_HOME</code> >> (where winutils is)<br />
+							<code>JAVA_HOME</code> >> (where you installed Java)<br />
+							<code>PATH</code> >> <code>;%SPARK_HOME%\bin; %JAVA_HOME%\bin;</code></p>
+						</div>
+						<div class="col">
+							<img src="presentation/assets/image/EnvironmentVariables.png" />
+						</div>					
+					</div>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Install Spark On Windows</h3>
+
+					<p>Step 6: Open the <code>conf</code> folder and create and modify <code>log4j.properties</code>.</p>
+					
+					<div class="container">
+						<div class="col">
+							<img src="presentation/assets/image/ConfFolder.png" />
+						</div>
+						<div class="col">
+							<img src="presentation/assets/image/log4j.png" />
+						</div>					
+					</div>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Install Spark On Windows</h3>
+
+					<p>Step 7:  In the bin folder, run <code>spark-shell.cmd</code>.  Type <code>Ctrl-D</code> to exit the shell.</p>
+					
+					<img src="presentation/assets/image/SparkShell.png" />
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Agenda</h3>
+					
+					<ol>
+						<li>The Origins of Spark</li>
+						<li>Installing Spark</li>
+						<li class="active">Functional Spark</li>
+						<li>Our First Examples</li>
+						<li>Spark SQL</li>
+						<li>Databricks UAP</li>
+						<li>.NET for Apache Spark</li>
+					</ol>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/colored-pencils.jpg" data-background-opacity="0.2">
+					<h3>Why Scala?</h3>
+					
+					<p>Spark supports Scala, Python, and Java as primary languages and R and SQL as secondaries.  We will use Scala because:</p>
+
+					<ol>
+						<li>Spark is written in Scala.</li>
+						<li>Functionality comes out in the Scala API first.</li>
+						<li>Scala is terser than Java but still readable.</li>
+						<li>Scala is typically faster than Python.</li>
+						<li>Scala is a functional programming language, which fits the data platform mindset better.</li>
+					</ol>
+					
+					<p>If you prefer Python or Java, that’s fine.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/arrow.jpg" data-background-opacity="0.2">
+					<h3>Functional Programming In Brief</h3>
+					
+					<p>Relevant functional programming concepts:</p>
+				
+					<pre><code data-line-numbers="|1|2|3|1-3" data-trim><script type="text/template">
+					def parseLine(line:String) { line.toString().split(",")(3); }
+					val rdd = lines.map(parseLine)
+					val rdd = lines.map(x => x.toString().split(",")(3))
+					</script></code></pre>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/koala.jpg" data-background-opacity="0.2" data-markdown>
+					<textarea data-template>
+					### Transformations
+					
+					Transformations take inputs and return an RDD or DataSet.  Transformations are lazily evaluated, making Spark processing more efficient.
+					
+					|Transformation|Description|Input|Output|
+					|--------------|-----------|----------|-----------|
+					|map(func)|Run a function for each row|1|1|
+					|flatMap(func)|Break a row into 0 or more rows|1|0+|
+					|filter(func)|Return if row fulfills predicate|1|0-1|
+					</textarea>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/cat-yawning.jpg" data-background-opacity="0.2">
+					<h3>Set Transformations</h3>
+					
+					<ol>
+						<li><code>rdd1.distinct()</code></li>
+						<li><code>rdd1.union(rdd2)</code></li>
+						<li><code>rdd1.intersection(rdd2)</code></li>
+						<li><code>rdd1.subtract(rdd2)</code> – Akin to the <code>EXCEPT</code> operator in SQL</li>
+						<li><code>rdd1.cartesian(rdd2)</code> – Cartesian product (<code>CROSS JOIN</code> in SQL)</li>
+					</ol>
+					
+					<p>Warning:  set operations can be slow in Spark depending on data sizes and whether data needs to be shuffled across nodes.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/jump.jpg" data-background-opacity="0.2" data-markdown>
+					<textarea data-template>
+					### Actions
+					
+					Actions take RDDs as inputs and return something other than an RDD or DataSet.  Actions cause Spark to evaluate all transformations and return.
+					
+					|Action|Description|Input|Output|
+					|------|-----------|----------|-----------|
+					|reduce(func)|Execute for each row|N|1|
+					|fold(zero)(func)|Reduce but with a "zero value"|N|1|
+					|aggregate(zero)(seqOp,combOp)|Generate output of arbitrary type|N|1|
+					|collect()|Load the RDD onto one node|N|N|
+					</textarea>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/jump.jpg" data-background-opacity="0.2" data-markdown>
+					<textarea data-template>
+					### More Actions
+					
+					Actions take RDDs as inputs and return something other than an RDD or DataSet.  Actions cause Spark to evaluate all transformations and return.
+					
+					|Action|Description|Input|Output|
+					|------|-----------|----------|-----------|
+					|count()|Return count of rows|N|1|
+					|take(n)|Return n elements. Often biased, no order guaranteed|N|n|
+					|top(n)|Get first n elements|N|n|
+					|foreach() / for()|Iterate through RDD|N|-|
+					</textarea>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Agenda</h3>
+					
+					<ol>
+						<li>The Origins of Spark</li>
+						<li>Installing Spark</li>
+						<li>Functional Spark</li>
+						<li class="active">Our First Examples</li>
+						<li>Spark SQL</li>
+						<li>Databricks UAP</li>
+						<li>.NET for Apache Spark</li>
+					</ol>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/restaurant.jpg" data-background-opacity="0.2">
+					<h3>Where to Eat?</h3>
+					
+					<p>We will analyze food service inspection data for the city of Durham.  We want to answer a number of questions about this data, including average scores and splits between classic restaurants and food trucks.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/demo.jpg" data-background-opacity="0.2">
+					<h3>Demo Time</h3>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Agenda</h3>
+					
+					<ol>
+						<li>The Origins of Spark</li>
+						<li>Installing Spark</li>
+						<li>Functional Spark</li>
+						<li>Our First Examples</li>
+						<li class="active">Spark SQL</li>
+						<li>Databricks UAP</li>
+						<li>.NET for Apache Spark</li>
+					</ol>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/frame.jpg" data-background-opacity="0.2">
+					<h3>The Evolution of Spark</h3>
+					
+					<p>One of the first additions to Spark was SQL support, first with Shark and then with Spark SQL.</p>
+
+					<p>With Apache Spark 2.0, Spark SQL can take advantage of Datasets (strongly typed RDDs) and DataFrames (Datasets with named columns).</p>
+
+					<p>Spark SQL functions are accessible within the SparkSession object, created by default as “spark” in the Spark shell.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/chain.jpg" data-background-opacity="0.2">
+					<h3>The Functional Approach</h3>
+					
+					<p><strong>Functions</strong> provide us with SQL-like operators which we can chain together in Scala, similar to how we can use LINQ with C#.  These functions include (but are not limited to) <code>select()</code>, <code>distinct()</code>, <code>where()</code>, <code>join()</code>, and <code>groupBy()</code>.
+
+					<p>There are also functions you might see in SQL Server like <code>concat()</code>, <code>concat_ws()</code>, <code>min()</code>, <code>max()</code>, <code>row_number()</code>, <code>rank()</code>, and <code>dense_rank()</code>.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/magnifying-glass.jpg" data-background-opacity="0.2">
+					<h3>Queries</h3>
+					
+					<p><strong>Queries</strong> are exactly as they sound:  we can write SQL queries.  Spark SQL strives to be ANSI compliant with additional functionality like sampling and user-defined aggregate functions.</p>
+
+					<p>Spark SQL tends to lag a bit behind Hive, which lags a bit behind the major relational players in terms of ANSI compliance.  That said, Spark SQL has improved greatly since version 1.0.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/movie.jpg" data-background-opacity="0.2">
+					<h3>Querying The MovieLens Data</h3>
+					
+					<p>GroupLens Research has made available their MovieLens data set which includes 20 million ratings of 27K movies.</p>
+
+					<p>We will use Apache Spark with Spark SQL to analyze this data set, letting us look at frequently rated movies, the highest (and lowest) rated movies, and common movie genres.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/demo.jpg" data-background-opacity="0.2">
+					<h3>Demo Time</h3>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Agenda</h3>
+					
+					<ol>
+						<li>The Origins of Spark</li>
+						<li>Installing Spark</li>
+						<li>Functional Spark</li>
+						<li>Our First Examples</li>
+						<li>Spark SQL</li>
+						<li class="active">Databricks UAP</li>
+						<li>.NET for Apache Spark</li>
+					</ol>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Databricks UAP</h3>
+
+					<div class="container">
+						<div class="col">
+							<p>Databricks, the commercial enterprise behind Apache Spark, makes available the Databricks Unified Analytics Platform in <a href="https://databricks.com/aws">AWS</a> and <a href="https://databricks.com/product/azure">Azure</a>.  They also have a <a href="https://community.cloud.databricks.com/">Community Edition</a>, available for free.</p>
+						</div>
+						<div class="col">
+							<img src="presentation/assets/image/DatabricksCommunityEdition.png" />
+						</div>					
+					</div>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Databricks UAP</h3>
+
+					<div class="container">
+						<div class="col">
+							<p>Clusters are 1 node and 15 GB RAM running on spot instances of AWS.</p>
+
+							<p>Data sticks around after a cluster goes away, and limited data storage is free.</p>
+						</div>
+						<div class="col">
+							<img src="presentation/assets/image/DatabricksData.png" />
+						</div>					
+					</div>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Databricks UAP</h3>
+					
+					<p>Zeppelin comes with a good set of built-in, interactive plotting options.</p>
+
+					<img src="presentation/assets/image/DatabricksZeppelinPlot.png" />
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Databricks UAP</h3>
+					
+					<p>Your cluster terminates after 2 hours of inactivity. You can also terminate the cluster early.</p>
+
+					<img src="presentation/assets/image/DatabricksTerminate.png" />
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Agenda</h3>
+					
+					<ol>
+						<li>The Origins of Spark</li>
+						<li>Installing Spark</li>
+						<li>Functional Spark</li>
+						<li>Our First Examples</li>
+						<li>Spark SQL</li>
+						<li>Databricks UAP</li>
+						<li class="active">.NET for Apache Spark</li>
+					</ol>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>dotnet-spark</h3>
+					
+					<p>Microsoft has official support for Spark running on .NET.  They support the C# and F# languages.</p>
+
+					<p>With .NET code, you are limited to DataFrames and Spark SQL, so no direct access to RDDs.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/demo.jpg" data-background-opacity="0.2">
+					<h3>Demo Time</h3>
+				</section>
+
+				<section data-background-image="presentation/assets/background/excavator.jpg" data-background-opacity="0.2">
+					<h3>What's Next</h3>
+					
+					<p>We've only scratched the surface of Apache Spark.  From here, check out:</p>
+					
+					<ul>
+						<li>MLLib, a library for machine learning algorithms built into Spark</li>
+						<li>SparkR and sparklyr, two R libraries designed for distributed computing</li>
+						<li>GraphX, a distributed graph database</li>
+						<li>Spark Streaming, allowing “real-time” data processing</li>
+					</ul>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Wrapping Up</h3>
+					
+					<p>
+						To learn more, go here:
+						<br />
+						<a href="https://csmore.info/on/spark">https://csmore.info/on/spark</a>
+					</p>
+					<br />
+					<p>
+						And for help, contact me:
+						<br />
+						<a href="mailto:feasel@catallaxyservices.com">feasel@catallaxyservices.com</a> | <a href="https://www.twitter.com/feaselkl">@feaselkl</a>
+					</p>
+					<br />
+					<p>
+						Catallaxy Services consulting:
+						<br />
+						<a href="https://csmore.info/contact">https://CSmore.info/on/contact</a>
+					</p>
+				</section>
+			</div>
+		</div>
+
+		<script src="../reveal.js/dist/reveal.js"></script>
+		<script src="../reveal.js/plugin/zoom/zoom.js"></script>
+		<script src="../reveal.js/plugin/notes/notes.js"></script>
+		<script src="../reveal.js/plugin/search/search.js"></script>
+		<script src="../reveal.js/plugin/markdown/markdown.js"></script>
+		<script src="../reveal.js/plugin/math/math.js"></script>
+		<script src="../reveal.js/plugin/menu/menu.js"></script>
+		<script src="../reveal.js/plugin/highlight/highlight.js"></script>
+		<script src="../reveal.js/plugin/chart/Chart.min.js"></script>
+		<script src="../reveal.js/plugin/chart/plugin.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				width: '70%',
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+				transition: 'fade',
+				
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath, RevealMenu, RevealChart ]
+			});
+		</script>
+	</body>
+</html>
